@@ -1,0 +1,267 @@
+/* @theme winterbloom */
+
+/* @import "base"; */
+
+@import url("fonts/noto-color-emoji.css");
+@import url("fonts/proxima-vara.css");
+
+
+:root {
+    --color-not-quite-black: #333;
+    --color-white-rgb: 255, 255, 255;
+    --color-white: rgb(var(--color-white-rgb));
+    --color-Salt-Water-rgb: 204, 237, 239;
+    --color-Salt-Water: rgb(var(--color-Salt-Water-rgb));
+    --color-Neptune-rgb: 153, 209, 214;
+    --color-Neptune: rgb(var(--color-Neptune-rgb));
+    --color-Aquarelle-rgb: 102, 173, 181;
+    --color-Aquarelle: rgb(var(--color-Aquarelle-rgb));
+    --color-Teal-rgb: 63, 140, 147;
+    --color-Teal: rgb(var(--color-Teal-rgb));
+    --color-Calypso-rgb: 38, 119, 127;
+    --color-Calypso: rgb(var(--color-Calypso-rgb));
+    --color-Moon-Raker-rgb: 234, 226, 249;
+    --color-Moon-Raker: rgb(var(--color-Moon-Raker-rgb));
+    --color-Aster-rgb: 198, 183, 237;
+    --color-Aster: rgb(var(--color-Aster-rgb));
+    --color-Lavender-rgb: 163, 137, 214;
+    --color-Lavender: rgb(var(--color-Lavender-rgb));
+    --color-Violet-rgb: 124, 96, 186;
+    --color-Violet: rgb(var(--color-Violet-rgb));
+    --color-Royal-Purple-rgb: 94, 63, 158;
+    --color-Royal-Purple: rgb(var(--color-Royal-Purple-rgb));
+    --color-Cupid-rgb: 249, 192, 201;
+    --color-Cupid: rgb(var(--color-Cupid-rgb));
+    --color-Zinnia-rgb: 255, 126, 203;
+    --color-Zinnia: rgb(var(--color-Zinnia-rgb));
+    --color-Coral-rgb: 255, 78, 163;
+    --color-Coral: rgb(var(--color-Coral-rgb));
+    --color-Paradise-Pink-rgb: 230, 33, 109;
+    --color-Paradise-Pink: rgb(var(--color-Paradise-Pink-rgb));
+    --color-Blood-rgb: 196, 3, 37;
+    --color-Blood: rgb(var(--color-Blood-rgb));
+    --color-Martian-Sky-rgb: 255, 213, 126;
+    --color-Martian-Sky: rgb(var(--color-Martian-Sky-rgb));
+    --color-Bone-rgb: 244, 244, 245;
+    --color-Bone: rgb(var(--color-Bone-rgb));
+    --color-Thunder-rgb: 35, 31, 32;
+    --color-Thunder: rgb(var(--color-Thunder-rgb));
+
+    --gradient-purple-green-light: linear-gradient(
+            190deg,
+            hsl(261deg 27% 42%) 0%,
+            hsl(243deg 27% 42%) 17%,
+            hsl(224deg 27% 42%) 33%,
+            hsl(205deg 27% 42%) 50%,
+            hsl(187deg 27% 42%) 67%,
+            hsl(168deg 27% 42%) 83%,
+            hsl(149deg 27% 42%) 100%
+        )
+        0 0 fixed;
+    --gradient-purple-blue-medium: linear-gradient(
+            190deg,
+            hsl(261deg 28% 30%) 0%,
+            hsl(248deg 30% 31%) 17%,
+            hsl(235deg 32% 32%) 33%,
+            hsl(222deg 34% 33%) 50%,
+            hsl(209deg 35% 34%) 67%,
+            hsl(197deg 37% 35%) 83%,
+            hsl(183deg 38% 36%) 100%
+        )
+        0 0 fixed;
+    --gradient-purple-blue-dark: linear-gradient(10deg, #111928, #1d162a) 0 0
+        fixed;
+    --gradient-cyan-blue-light: linear-gradient(
+            190deg,
+            hsl(183deg 63% 33%) 0%,
+            hsl(189deg 69% 30%) 17%,
+            hsl(194deg 74% 27%) 33%,
+            hsl(199deg 79% 24%) 50%,
+            hsl(203deg 85% 21%) 67%,
+            hsl(209deg 89% 18%) 83%,
+            hsl(214deg 95% 15%) 100%
+        )
+        0 0 fixed;
+    --gradient-purple-green-highlight: linear-gradient(
+            190deg,
+            hsl(261deg 27% 53%) 0%,
+            hsl(243deg 27% 52%) 17%,
+            hsl(224deg 27% 52%) 33%,
+            hsl(205deg 27% 51%) 50%,
+            hsl(186deg 27% 51%) 67%,
+            hsl(168deg 27% 50%) 83%,
+            hsl(149deg 27% 50%) 100%
+        )
+        0 0 fixed;
+    --gradient-purple-red: linear-gradient(90deg, #8864cb, #cb6488) 0 0 fixed;
+    --gradient-purple-red-highlight: linear-gradient(90deg, #b187ff, #ff80ac) 0
+        0 fixed;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a,
+a:active,
+a:visited {
+    color: white;
+}
+
+section {
+    background-color: var(--color-Royal-Purple);
+    color: var(--color-white);
+    padding: 4rem;
+    font-family: "Proxima Vara", "Noto Color Emoji";
+    font-size: 32px;
+    font-weight: 300;
+    align-items: stretch;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 1.75em;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+    padding-inline: 5rem;
+    padding-block: 2rem;
+}
+
+h2 {
+    font-weight: 300;
+}
+
+ul {
+    margin: 0;
+}
+
+h1 + ul {
+    margin: 1rem;
+}
+
+strong {
+    font-weight: bolder;
+}
+
+section.align-right {
+    text-align: right;
+}
+
+section.align-bottom-right {
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+section.hide-title h1 {
+    display: none;
+}
+
+section:has(h1) {
+    text-align: center;
+    padding: 0;
+}
+
+section h1 {
+    background-color: rgba(var(--color-Royal-Purple-rgb), 0.8);
+    backdrop-filter: blur(5px) grayscale(50%);
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.5);
+}
+
+section.end {
+    font-size: 3rem;
+    text-shadow: 0 0 0.5rem black;
+}
+
+section.screenshot {
+    background: var(--gradient-purple-green-light);
+}
+
+section.screenshot h1 {
+    display: none;
+}
+
+section.gradient {
+    background: var(--gradient-purple-green-light);
+}
+
+.friendly-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+section:has(video) {
+    /* padding: 0; */
+    background-color: black !important;
+    position: relative;
+}
+
+section:has(video) p:first-child {
+    margin-block: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 0;
+}
+
+section:has(video) p {
+    z-index: 1;
+}
+
+section:has(video) video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+section.smaller {
+    font-size: 2rem;
+}
+
+section.text-align-center {
+    text-align: center;
+}
+
+section.columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 5rem;
+}
+
+section.columns p {
+    flex: 1;
+    width: 100%;
+    padding-left: 2rem;
+}
+
+section.columns p:first-child {
+    padding-left: 0;
+}
+
+
+section footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-weight: 200;
+    font-size: 0.5rem;
+    text-align: right;
+    padding: 0.25rem;
+}

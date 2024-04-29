@@ -1,0 +1,179 @@
+Hello!
+
+I'm going to talk about the absurd idea of rendering KiCAD projects on the web.
+
+---
+
+I'm Thea Flowers, known on the internet as "Stargirl".
+I'm a creative technologist and a member of the open source hardware association's board of directors.
+
+---
+
+Here's where this journey started:
+Sharing hardware designs sucks.
+
+---
+
+I share and look at a lot of schematics and PCBs. I also write about hardware a lot and it helps readers to show schematics and layouts alongside text.
+
+But doing that sucks!
+
+---
+
+You have a few options, but none are ideal.
+
+PDFs are okay for schematics, but terrible for layouts. They also don't embed in the middle of text well.
+
+Screenshots are easier to show with text but they have a ton of drawbacks.
+
+In either case, you're losing so much context- like symbol fields that aren't visible or net names. They're just gone.
+
+You can give up and just link to the github or an archive, but then users have to download, extract, and open up KiCAD to even take a cursory look. Blech.
+
+---
+
+So, I decided to teach web browsers how to display KiCAD files.
+
+---
+
+I call it KiCanvas! KiCanvas exists in two forms:
+
+---
+
+First, a standalone app where you can literally drag and drop some files or paste in a GitHub URL and it'll load and show the files. This is a super convenient way to peek at a project without having to download everything.
+
+---
+
+Second, it can be used to embed files alongside text in a web page. This is perfect for articles and documentation, which makes it so much easier for me to write about hardware.
+
+---
+
+KiCanvas is entirely open source. My goal here is to amplify open hardware through sharing, and being able to easily drop an interactive view of your KiCAD files into a page is a massive gain for sharing.
+
+---
+
+But y'all are here for the journey.
+The edge cases.
+The hacks.
+The horrors that keep me up at night.
+Let's talk about those.
+
+---
+
+To give you a sense of scope here- KiCAD is a 31 year old codebase with over a million lines of C & C++ code spread across over 5 thousand source files created by multiple individuals.
+
+I need to take a subset of that and make it work in a freakin' web browser.
+
+---
+
+Some folks might think about "porting" KiCAD through technology like WebAssembly and emscriptem, but with KiCAD being so large that's really not feasible for someone to tackle alone.
+
+So I built it from scratch! Being view-only allows me to make a bunch of assumptions and take lots of shortcuts, significantly lowering the scope and complexity.
+
+---
+
+KiCanvas is written using TypeScript and makes use of standard web technologies including Canvas, WebGL, and Web Components.
+
+It has zero runtime dependencies and weighs in at about 20,000 lines of code.
+
+---
+
+
+
+---
+
+Let's talk about the first major challenge: parsing KiCAD documents.
+
+---
+
+There's some good news: KiCAD documents are just text files that use S-expressions - basically JSON but with lots of parenthesis. Syntax-wise, this should be easy to parse.
+
+---
+
+But there's bad news: the deserialization logic is *complicated* and on top of that there's a ton of legacy cases to handle like renamed fields.
+
+---
+
+In fact, it is so complex that KiCAD parses its files one token at a time to handle variations in both the *structure* and *content* of parsed data. It's **thousands** of lines of code.
+
+---
+
+And there are lots of cases where the code calls non-trivial functions on the "real" class, which tends to break my "read-only" assumptions. Like this seemingly innocuous call to SetOrientation(), which you would think would just set a variable...
+
+---
+
+... but actual is this massive switch/case that does all kinds of nonsense.
+
+---
+
+And then there's fun cases like KiCAD using DECIDEGREES instead of degrees in exactly one case. Yes, **deci** degrees, as in tenths of a degree. In only one place.
+
+---
+
+Nothing really captures the struggle more than this bit of gold in the Hackaday comments section, where user "cyborgar" quips that "Not even KiCAD has a robust KiCAD file format parser".
+
+---
+
+In the end, I found a workable solution after a few iterations Ultimately I can't avoid all of KiCAD's deserialization complexity, but I was able to mostly load KiCAD documents into "data-only" classes with minimal dynamic behavior. Phew.
+
+---
+
+As hard as parsing was, nothing could have prepared me for how difficult rendering text was.
+
+To be clear, rendering text is always pretty hard but rendering text like KiCAD is some cosmic horror stuff.
+
+---
+
+First, KiCAD uses "Hershey fonts". They're vector fonts that represent letterforms using strokes instead of outlines like conventional typefaces. This of course requires custom layout and rendering logic.
+
+---
+
+What's even more fun is that KiCAD's built-in font is defined in a single C++ file with over 60,000 lines. It's nearly 2 megabtyes. VSCode hates even looking at this file.
+
+---
+
+Putting letters on a screen isn't the end of the story though. There's a myriad of alignment and formatting options that need to be supported. KiCAD even has a mini markup language for things like underline, overbar, and italic. It's kind of like markdown, but simpler.
+
+---
+
+All of that is accomplishable, but what is much harder to tackle is that KiCAD has 23 different "Text" classes and each one of them has different behavior. Each. One.
+
+---
+
+In the end, I ported a large chunk of KiCAD's text rendering and layout code along with replicating the class hierarchy for all of the text classes.
+
+---
+
+It took a lot of really weird looking test files like these to get everything working, and there's still bugs!
+
+I really would've preferred a "cleaner" approach, but sometimes you just gotta match the thing you're trying to emulate.
+
+---
+
+There were plenty of other fun and challenging aspects to making this project work, more than I have time for today. But, I'll leave you with one more:
+
+---
+
+KiCAD has an entire 2x2 transformation matrix class that's used only for Symbol orientation. It's not used anywhere else! A ghostly remnant of code long forgotten.
+
+---
+
+Alright, let's wrap this up.
+
+It's important to say that the work of the KiCAD team is amazing and this isn't intended as criticism. These were just fun and weird things I encountered during my journey, and any project of KiCAD's size and longevity is bound to have some warts.
+
+I hope you've had fun learning about some of the oddities and challenges and I hope you're inspired to share your hardware with others.
+
+---
+
+This is only the beginning of KiCanvas and there's so much more I want to add. Things like a BOM view, an assembly view similar to InteractiveHTMLBom, and library browsers.
+
+---
+
+If you'd like to learn more about KiCanvas, you can swing over to kicanvas dot org. There's also a channel for KiCanvas in my Discord. If you'd would like to sponsor my work on KiCanvas, you can find all those details on the website as well.
+
+---
+
+Finally, if you want to follow me you can find me on the web at thea.codes and on Twitter as @theavalkyrie. Other social media links are on my website.
+
+Thank you all so much for joining me today and I hope you have a lovely evening!

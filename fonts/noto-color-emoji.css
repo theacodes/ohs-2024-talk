@@ -1,0 +1,7 @@
+@font-face {
+    font-display: swap;
+    font-family: "Noto Color Emoji";
+    font-style: normal;
+    font-weight: 400;
+    src: url("noto-color-emoji-v30-emoji-regular.woff2") format("woff2");
+}
